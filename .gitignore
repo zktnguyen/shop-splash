@@ -9,6 +9,7 @@
 # production
 **/build
 dist
+prod.json
 
 # misc
 .env
