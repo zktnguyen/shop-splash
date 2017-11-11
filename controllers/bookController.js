@@ -1,4 +1,4 @@
-import Book from '../models/item';
+import Book from '../models/book';
 
 const bookController = {};
 
@@ -24,8 +24,7 @@ bookController.post = (req, res) => {
 };
 
 bookController.getAll = (req, res) => {
-  Book
-    .find({})
+  Book.find({})
     .then(posts =>
       res.status(200).json({
         success: true,
@@ -42,8 +41,7 @@ bookController.getAll = (req, res) => {
 bookController.remove = (req, res) => {
   const query = { _id: req.params._id };
 
-  Book
-    .remove(query)
+  Book.remove(query)
     .then(removedBook =>
       res.status(200).json({
         success: true,
@@ -72,8 +70,7 @@ bookController.update = (req, res) => {
 
   const options = { new: true };
 
-  Book
-    .findOneAndUpdate(query, update, options)
+  Book.findOneAndUpdate(query, update, options)
     .then(updatedBook =>
       res.status(200).json({
         success: true,
