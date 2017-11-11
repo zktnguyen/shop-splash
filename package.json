@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && node ./build/index.js",
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build",
+    "build-server": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
