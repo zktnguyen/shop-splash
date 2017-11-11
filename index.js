@@ -8,12 +8,14 @@ import Promise from 'bluebird';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
+import router from './routes';
+
 // Create the mongo connection to store session data
 // const MongoStore = require('connect-mongo')(session);
 // Create express app
 const app = express();
 
-dotenv.config();
+dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,19 +27,18 @@ mongoose.connect(
   { useMongoClient: true },
   console.log('connected to mongoDB')
 );
+
+// use routes for api
+app.use('/api', router);
+
 // connect static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-// get api
-app.get('/api', (req, res) => {
-  res.json({ success: true, data: 'Hello there!' });
-});
 
 // any routes will display these static files
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3002;
 
 app.listen(port);
