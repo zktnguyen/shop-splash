@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node -- index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build ./server -s",
+    "build": "npm run clean && npm run build-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

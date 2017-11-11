@@ -28,6 +28,20 @@ mongoose.connect(
   console.log('connected to mongoDB')
 );
 
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, '# MongoDB - connection error: '));
+// // Set up session to connect cookie to mongoDB
+// app.use(
+//   session({
+//     secret: 'secretkeyyy',
+//     saveUninitialized: false,
+//     resave: false,
+//     cookie: { maxAge: 1000 * 60 * 60 * 24 * 2 },
+//     store: new MongoStore({ mongooseConnection: db, ttl: 2 * 24 * 60 * 60 })
+//     // ttl: 2 days * 24 hours * 60 minutes * 60 seconds
+//   })
+// );
+
 // use routes for api
 app.use('/api', router);
 
