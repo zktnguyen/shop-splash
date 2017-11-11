@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kim T Nguyen",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
