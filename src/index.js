@@ -23,7 +23,8 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 mongoose.connect(
-  process.env.MONGO_URI || 'mongodb://localhost/shopping',
+  process.env.MONGO_URI ||
+    'mongodb://kim:thisisnothidden@ds064198.mlab.com:64198/shop',
   { useMongoClient: true },
   console.log('connected to mongoDB')
 );
