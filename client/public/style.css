@@ -23,3 +23,9 @@
   flex: 1;
   margin-top: 25px;
 }
+
+.cartIcon {
+  padding: 0 10px;
+  background-color: rgb(137, 186, 201);
+  border-radius: 50%;
+}

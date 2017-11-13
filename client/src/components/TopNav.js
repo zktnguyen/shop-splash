@@ -1,55 +1,38 @@
-import React, { Component } from 'react';
-import { Menu, Container } from 'semantic-ui-react';
-// import PropTypes from 'prop-types';
+import React from 'react';
+import { Menu, Container, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class TopNav extends Component {
-  constructor() {
-    super();
-    this.state = {
-      activeItem: 'home'
-    };
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
+const TopNav = ({ cartCapacity }) => (
+  <Container>
+    <Menu pointing secondary size="huge">
+      <Menu.Item as={Link} to="/" name="home" />
+      <Menu.Menu position="right">
+        <Menu.Item as={Link} to="/admin" name="Admin" />
+        <Menu.Item as={Link} to="/cart">
+          Cart{' '}
+          {cartCapacity > 0 ? (
+            <Icon as="h5" className="cartIcon">
+              {cartCapacity}
+            </Icon>
+          ) : (
+            ''
+          )}
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  </Container>
+);
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+TopNav.propTypes = {
+  cartCapacity: PropTypes.number.isRequired
+};
 
-  render() {
-    const { activeItem } = this.state;
-
-    return (
-      <Container>
-        <Menu pointing secondary size="huge">
-          <Menu.Item
-            name="home"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="about"
-            active={activeItem === 'about'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="contact"
-            active={activeItem === 'contact'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Menu position="right">
-            <Menu.Item
-              name="Admin"
-              active={activeItem === 'admin'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="Cart"
-              active={activeItem === 'cart'}
-              onClick={this.handleItemClick}
-            />
-          </Menu.Menu>
-        </Menu>
-      </Container>
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    cartCapacity: state.cart.quantity
+  };
 }
 
-export default TopNav;
+export default connect(mapStateToProps)(TopNav);

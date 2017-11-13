@@ -52,11 +52,11 @@ app.get('/api/cart', cartController.get);
 app.use('/api', router);
 
 // connect static files
-app.use(express.static(path.join(__dirname, '../src/public')));
+app.use(express.static(path.join(__dirname, '../client/public')));
 
 // any routes will display these static files
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../src/public/index.html'));
+  res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
 const port = process.env.PORT || 3002;
