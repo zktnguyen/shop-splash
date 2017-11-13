@@ -1,3 +1,7 @@
+#root h1, h2, h3, h4, h5, h6, p, a, span {
+  font-family: 'Noto Sans', sans-serif;
+}
+
 .pullDown {
   bottom: 0;
   position: relative;
