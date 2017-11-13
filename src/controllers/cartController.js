@@ -17,7 +17,7 @@ cartController.post = (req, res) => {
 cartController.get = function stupid(req, res) {
   if (
     typeof req.session.cart === 'undefined' ||
-    typeof req.session.cart.quantity === 'undefined'
+    typeof req.session.cart[0].quantity === 'undefined'
   ) {
     return req.session.destroy(err => res.status(500).json({ message: err }));
   }

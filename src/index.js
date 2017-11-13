@@ -29,7 +29,7 @@ mongoose.connect(
   process.env.MONGO_URI ||
     'mongodb://kim:thisisnothidden@ds064198.mlab.com:64198/shop',
   { useMongoClient: true },
-  console.log('connected to mongoDB')
+  () => console.log('connected to mongoDB')
 );
 
 const db = mongoose.connection;
@@ -47,8 +47,8 @@ app.use(
 );
 
 // use routes for api
-app.get('/api/cart', cartController.get);
 app.post('/api/cart', cartController.post);
+app.get('/api/cart', cartController.get);
 app.use('/api', router);
 
 // connect static files

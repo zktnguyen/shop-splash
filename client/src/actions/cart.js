@@ -8,6 +8,7 @@ const GET_CART = 'GET_CART';
 export const getCart = () => dispatch =>
   api.cart.get().then(cart => {
     let savedCart = [];
+    console.log(cart);
     if (Array.isArray(cart)) {
       savedCart = cart;
     } else {
