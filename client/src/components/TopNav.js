@@ -18,7 +18,7 @@ class TopNav extends Component {
 
     return (
       <Container>
-        <Menu pointing secondary size="huge" className="centerMenu">
+        <Menu pointing secondary size="huge">
           <Menu.Item
             name="home"
             active={activeItem === 'home'}

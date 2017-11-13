@@ -18,6 +18,7 @@
     "prettier/prettier": ["error", { "singleQuote": true }], 
     "no-underscore-dangle": "off",
     "no-extra-boolean-cast": "off",
+    "jsx-a11y/label-has-for": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

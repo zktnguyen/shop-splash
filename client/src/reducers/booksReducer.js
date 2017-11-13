@@ -18,14 +18,14 @@ export default function(
         ...state,
         books: [...state.books, action.payload],
         msg: 'Saved! Please click to continue',
-        style: 'success',
+        style: 'green',
         validation: 'success'
       };
     case actionTypes.POST_BOOK_REJECTED:
       return {
         ...state,
         msg: 'Please, try again',
-        style: 'danger',
+        style: 'red',
         validation: 'error'
       };
     case actionTypes.DELETE_BOOK:
@@ -53,7 +53,7 @@ export default function(
       }
       return { books: currentBooks };
     case actionTypes.RESET_BUTTON:
-      return { ...state, msg: null, style: 'primary', validation: null };
+      return { ...state, msg: null, style: 'blue', validation: null };
     default:
       return state;
   }
