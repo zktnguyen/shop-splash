@@ -4,6 +4,20 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 const UPDATE_CART = 'UPDATE_CART_ITEM';
 const GET_CART = 'GET_CART';
+const EMPTY_CART = 'EMPTY_CART';
+
+export const emptyCart = () => dispatch =>
+  api.cart.post([]).then(cart => {
+    const action = {
+      type: EMPTY_CART,
+      payload: {
+        cart,
+        total: 0,
+        qty: 0
+      }
+    };
+    dispatch(action);
+  });
 
 export const getCart = () => dispatch =>
   api.cart.get().then(cart => {
@@ -20,14 +34,16 @@ export const getCart = () => dispatch =>
     dispatch(action);
   });
 
-export const addToCart = item => dispatch =>
-  api.cart.post(item).then(cart => {
+export const addToCart = (item, cart) => dispatch => {
+  const addedCart = [...cart, item];
+  api.cart.post(addedCart).then(newCart => {
     const action = {
       type: ADD_TO_CART,
-      payload: cart
+      payload: { cart: newCart, price: item.price }
     };
     dispatch(action);
   });
+};
 
 export const deleteCartItem = (_id, cart) => dispatch => {
   const index = cart.findIndex(item => item._id === _id);
@@ -97,6 +113,7 @@ export const updateCartItem = (_id, unit, cart) => dispatch => {
 };
 
 export const actionTypes = {
+  EMPTY_CART,
   GET_CART,
   ADD_TO_CART,
   DELETE_CART_ITEM,

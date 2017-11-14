@@ -26,6 +26,13 @@ const getTotal = cart => {
 export default function(state = { cart: [], total: 0, quantity: 0 }, action) {
   let update = { total: -1, quantity: -1 };
   switch (action.type) {
+    case actionTypes.EMPTY_CART:
+      return {
+        ...state,
+        cart: action.payload.cart,
+        total: action.payload.total,
+        quantity: action.payload.qty
+      };
     case actionTypes.GET_CART:
       update = getTotal(action.payload);
       return {
@@ -42,7 +49,7 @@ export default function(state = { cart: [], total: 0, quantity: 0 }, action) {
         1
       );
       return {
-        cart: [...state.cart, action.payload],
+        cart: action.payload.cart,
         total: update.total,
         quantity: update.quantity
       };

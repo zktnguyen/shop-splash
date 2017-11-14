@@ -26,6 +26,7 @@
 
 .cartIcon {
   padding: 0 10px;
+  margin: 0 10px;
   background-color: rgb(137, 186, 201);
   border-radius: 50%;
 }

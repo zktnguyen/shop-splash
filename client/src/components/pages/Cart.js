@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Header, Modal, Button, Icon, Grid, Segment } from 'semantic-ui-react';
-import { getCart } from '../../actions/cart';
+import { getCart, emptyCart } from '../../actions/cart';
 
 import CartItem from './CartItem';
 
@@ -24,6 +24,10 @@ class Cart extends Component {
   }
 
   close = () => this.setState({ showModal: false });
+  confirm = () => {
+    this.setState({ showModal: false });
+    this.props.emptyCart();
+  }
   open = () => this.setState({ showModal: true });
 
   renderEmpty = () => <h1>Empty Cart</h1>;
@@ -50,7 +54,7 @@ class Cart extends Component {
           <Segment>
             <Grid>
               <Grid.Column width={12}>
-                <h5>Total: USD ${this.props.total}</h5>
+                <h5>Total: USD ${this.props.total.toFixed(2)}</h5>
               </Grid.Column>
               <Grid.Column width={4}>
                 <Modal
@@ -69,7 +73,7 @@ class Cart extends Component {
                     <p>You will receive an email confirmation</p>
                   </Modal.Content>
                   <Modal.Actions>
-                    <Button color="green" inverted onClick={this.close}>
+                    <Button color="green" inverted onClick={this.confirm}>
                       <Icon name="checkmark" /> Continue
                     </Button>
                   </Modal.Actions>
@@ -98,7 +102,8 @@ Cart.propTypes = {
     }).isRequired
   ).isRequired,
   total: PropTypes.number.isRequired,
-  getCart: PropTypes.func.isRequired
+  getCart: PropTypes.func.isRequired,
+  emptyCart: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -109,7 +114,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getCart }, dispatch);
+  return bindActionCreators({ getCart, emptyCart }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

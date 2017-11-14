@@ -24,7 +24,7 @@ class BookItem extends Component {
 
     const cartIndex = this.props.cart.findIndex(cart => cart._id === book._id);
     if (cartIndex === -1) {
-      this.props.addToCart(book);
+      this.props.addToCart(book, this.props.cart);
     } else {
       this.props.updateCartItem(book._id, 1, this.props.cart);
     }
