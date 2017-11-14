@@ -30,3 +30,26 @@
   background-color: rgb(137, 186, 201);
   border-radius: 50%;
 }
+
+.book-image {
+  display: block;
+  margin: auto;
+  width: 220px;
+  height: 220px;
+}
+
+.card-button {
+  bottom: 10px;
+  position: absolute;
+}
+
+.card {
+  height: 380px;
+  display: block;
+  padding: 20px;
+  margin: 20px auto !important;
+}
+
+.card-description {
+  overflow: auto;
+}

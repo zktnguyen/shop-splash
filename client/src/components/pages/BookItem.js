@@ -33,17 +33,25 @@ class BookItem extends Component {
   render() {
     return (
       <div>
-        <Card>
+        <Card className="card">
           <Card.Content>
             <Grid.Column mobile={16} tablet={5}>
-              <Image size="small" src={this.props.image} />
+              <Image className="book-image" src={this.props.image} />
             </Grid.Column>
             <Grid.Column mobile={8} tablet={10}>
-              <Card.Header>{this.props.title}</Card.Header>
+              <Card.Header as="h3">{this.props.title}</Card.Header>
               <Card.Meta>USD ${this.props.price}</Card.Meta>
-              <Card.Description>{this.props.description}</Card.Description>
+              <Card.Description className="card-description">
+                {this.props.description}
+              </Card.Description>
               <div className="ui">
-                <Button floated="left" color="teal" onClick={this.handleCart}>
+                <Button
+                  className="card-button"
+                  floated="left"
+                  size="large"
+                  color="teal"
+                  onClick={this.handleCart}
+                >
                   Add to cart
                 </Button>
               </div>
