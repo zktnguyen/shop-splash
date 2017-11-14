@@ -15,8 +15,8 @@ class CartItem extends Component {
   }
 
   onDelete = () => {
-    const { _id } = this.props._id;
-    this.props.deleteCartItem({ _id });
+    const { _id } = this.props;
+    this.props.deleteCartItem(_id, this.props.cart);
   };
 
   onIncrement = () =>

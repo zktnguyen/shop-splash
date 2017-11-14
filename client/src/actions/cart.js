@@ -8,7 +8,6 @@ const GET_CART = 'GET_CART';
 export const getCart = () => dispatch =>
   api.cart.get().then(cart => {
     let savedCart = [];
-    console.log(cart);
     if (Array.isArray(cart)) {
       savedCart = cart;
     } else {
@@ -30,18 +29,40 @@ export const addToCart = item => dispatch =>
     dispatch(action);
   });
 
-export const deleteCartItem = item => dispatch =>
-  api.cart.post(item).then(cart => {
-    const action = {
-      type: DELETE_CART_ITEM,
-      payload: cart
-    };
-    dispatch(action);
-  });
+export const deleteCartItem = (_id, cart) => dispatch => {
+  const index = cart.findIndex(item => item._id === _id);
+  if (index >= 0 && cart[index].quantity >= 1) {
+    const { price, quantity } = cart[index];
+    const newCart = [...cart.slice(0, index), ...cart.slice(index + 1)];
+    api.cart.post(newCart).then(updatedCart => {
+      const action = {
+        type: DELETE_CART_ITEM,
+        payload: {
+          cart: updatedCart,
+          price,
+          qty: quantity
+        }
+      };
+      dispatch(action);
+    });
+  }
+  const action = {
+    type: DELETE_CART_ITEM,
+    payload: {
+      cart,
+      qty: 0,
+      price: 0
+    }
+  };
+  dispatch(action);
+};
 
 export const updateCartItem = (_id, unit, cart) => dispatch => {
   const index = cart.findIndex(item => item._id === _id);
-  if (index >= 0 && cart[index].quantity >= 1 && unit === 1) {
+  if (
+    index >= 0 &&
+    ((cart[index].quantity >= 1 && unit === 1) || cart[index].quantity > 1)
+  ) {
     const updatedItem = {
       ...cart[index],
       quantity: cart[index].quantity + unit

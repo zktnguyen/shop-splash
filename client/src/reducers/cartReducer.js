@@ -24,9 +24,7 @@ const getTotal = cart => {
 };
 
 export default function(state = { cart: [], total: 0, quantity: 0 }, action) {
-  let update = { total: 0, quantity: 0 };
-  let currentCart = [];
-  let index = -1;
+  let update = { total: -1, quantity: -1 };
   switch (action.type) {
     case actionTypes.GET_CART:
       update = getTotal(action.payload);
@@ -49,28 +47,18 @@ export default function(state = { cart: [], total: 0, quantity: 0 }, action) {
         quantity: update.quantity
       };
     case actionTypes.DELETE_CART_ITEM:
-      currentCart = [...state.cart];
-      index = currentCart.findIndex(item => item._id === action.payload._id);
-      if (index >= 0) {
+      if (!!action.payload.qty) {
         update = updateState(
           state.total,
           state.quantity,
-          currentCart[index].price * -1,
-          currentCart[index].quantity * -1
+          action.payload.price * -1,
+          action.payload.qty * -1
         );
-        return {
-          cart: [
-            ...currentCart.slice(0, index),
-            ...currentCart.slice(index + 1)
-          ],
-          total: update.total,
-          quantity: update.quantity
-        };
       }
       return {
-        cart: currentCart,
-        total: state.total,
-        quantity: state.quantity
+        cart: action.payload.cart,
+        total: update.total !== -1 ? update.total : state.total,
+        quantity: update.quantity !== -1 ? update.quantity : state.quantity
       };
     case actionTypes.UPDATE_CART:
       if (!!action.payload.qty) {
@@ -83,8 +71,8 @@ export default function(state = { cart: [], total: 0, quantity: 0 }, action) {
       }
       return {
         cart: action.payload.cart,
-        total: !!update.total ? update.total : state.total,
-        quantity: !!update.quantity ? update.quantity : state.quantity
+        total: update.total !== -1 ? update.total : state.total,
+        quantity: update.quantity !== -1 ? update.quantity : state.quantity
       };
     default:
       return state;
