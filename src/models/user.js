@@ -51,5 +51,7 @@ userSchema.methods.toAuthJSON = function toAuthJSON() {
   };
 };
 
+userSchema.plugin(uniqueValidator, { message: 'Not a unique e-mail provided' });
+
 const User = mongoose.model('User', userSchema);
 export default User;
