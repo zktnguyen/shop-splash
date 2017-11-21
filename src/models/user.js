@@ -13,7 +13,8 @@ const userSchema = new Schema({
     index: true,
     unique: true
   },
-  passwordHash: { type: String, required: true }
+  passwordHash: { type: String, required: true },
+  admin: { type: Boolean, default: false }
 });
 
 export function cryptPassword(password) {
@@ -30,6 +31,10 @@ userSchema.methods.isValidPassword = function isValidPassword(password) {
 
 userSchema.methods.setPassword = function setPassword(password) {
   this.passwordHash = cryptPassword(password);
+};
+
+userSchema.methods.setAdminRights = function setAdmin(right) {
+  this.admin = right;
 };
 
 // creates a json web token with email given
