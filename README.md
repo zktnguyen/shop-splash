@@ -1,2 +1,2 @@
 # shop-splash
-shopping unsplash api
+Shopping cart application, MERN stack.
